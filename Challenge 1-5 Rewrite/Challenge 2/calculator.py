@@ -61,7 +61,7 @@ def calc(value):
         elif salary_taxable>=i.salary_bound:
             tax='{:.2f}'.format(float(salary_taxable*i.rate-i.quick_subtractor))
             break
-    salary_left = '{:.2f}'.format(float(salary) - float(tax))
+    salary_left = '{:.2f}'.format(float(salary*(1-Social_ins_rate)) - float(tax))
     return salary_left
 
 output_dict=employee_dict
