@@ -72,8 +72,10 @@ class Config(object):
     @property
     def shebao_L(self):
         return self.config_dict['JiShuL']
+    @property    
     def shebao_H(self):
         return self.config_dict['JiShuH']
+    @property
     def total_rate(self):
         for para_value in self.config_dict.values():
             para_sum +=para_value
@@ -113,7 +115,58 @@ class tax_calc(object):
         self.userdata=user_data.all_user
 
     @staticmethod
+    def shebao_judege(self,salary):
+        try:
+            salary=float(value)
+        except TypeError:
+            print('Wrong type of value in shebao_judge')
+            sys.exit()
+        if salary<=config.shebao_L:
+            shebao=config.shebao_L*config.total_rate
+        if salary>=config.shebao_H
+            shebao=config.shebao_H*config.total_rate
+        else:
+            shebao=salary*config.total_rate
+        return shebao
+    @classmethod
+    def tax_calc(self,salary):
+        try:
+            salary=float(value)
+        except TypeError:
+            print('Wrong type of value in tax_calc')
+            sys.exit()
+        #调用静态函数计算社保    
+        shebao=shebao_judege(salary)
+        #使用函数查询表来计算应缴税工资总数
+        salary_taxable= salary-shebao
+        #计算税金和税后工资
+        for i in tax_table:
+        if salary<=tax_start_point:
+            tax =0 
+            break
+        elif salary_taxable>=i.salary_bound:
+            tax='{:.2f}'.format(float(salary_taxable*i.rate-i.quick_subtractor))
+            break
+        salary_left = '{:.2f}'.format(float(salary*(1-Social_ins_rate)) - float(tax))
+        return shebao,tax,salary_left
     
+    def _calc_all_user(self):
+        self.userlist=[]
+        for i in self.userdata.items:
+            #将字典型数据转化为列表
+            userlist.append(list(i))
+        for j in userlist:
+            j.append(tax_calc(j[1]))
+    
+    #逐行打印列表
+    def print_salary_table(self):
+        with open (config.get_para('-o'),'w',newline='') as file:
+            writer=csv.writer（file)
+            writer.writerows(self.userlist)
+
+if __name__=='__main__':
+    calculator=tax_calc()
+    calculator.print_salary_table()
 
 
 
