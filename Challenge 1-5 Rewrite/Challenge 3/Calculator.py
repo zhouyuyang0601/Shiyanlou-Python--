@@ -19,7 +19,7 @@ tax_table=[
     	tax_table_item(9000, 0.25, 1005),
     	tax_table_item(4500, 0.2, 555),
     	tax_table_item(1500, 0.1, 105),
-    	tax_table_item(0, 0.03, 0)
+    	tax_table_item(0, 0.03, 0)]
 
 #
 # Real code begins here
@@ -42,7 +42,7 @@ class Args(object):
         try:
             return self.employee_dict[config]
         except ValueError:
-            print(you required a wrong path)
+            print('you required a wrong path')
             sys.exit()
 #定义实例arg为Args类，方便在之后调用
 arg=Args()
@@ -54,7 +54,7 @@ class Config(object):
     def _parse_config(self):
         self.config_dict={}
         try:
-            with open self.config_path as f:
+            with open(self.config_path) as f:
                     for lines in f:
                        key,value=f.strip().split('=')
                        self.config_dict[key.strip()]='{:.2f}'.format(float(value.strip()))
@@ -92,7 +92,7 @@ class Userdata(object):
     def _parse_user_data(self):
         self.user_data_dict={}
         try:
-            with open self.user_path as f:
+            with open(self.user_path) as f:
                 for employee in f:
                     user_id, salary=employee.strip().split(',')
                     self.user_data_dict[user.id.strip()]='{:.2f}'.format(float(salary.strip()))
@@ -103,7 +103,7 @@ class Userdata(object):
     def get_user(self,user_id):
         return self.user_data_dict[user_id]
     @property
-    def all_user(self)：
+    def all_user(self):
         return self.user_data_dict
 
 #定义一个user类的实例
@@ -123,7 +123,7 @@ class tax_calc(object):
             sys.exit()
         if salary<=config.shebao_L:
             shebao=config.shebao_L*config.total_rate
-        if salary>=config.shebao_H
+        if salary>=config.shebao_H:
             shebao=config.shebao_H*config.total_rate
         else:
             shebao=salary*config.total_rate
@@ -141,14 +141,16 @@ class tax_calc(object):
         salary_taxable= salary-shebao
         #计算税金和税后工资
         for i in tax_table:
-        if salary<=tax_start_point:
-            tax =0 
-            break
-        elif salary_taxable>=i.salary_bound:
-            tax='{:.2f}'.format(float(salary_taxable*i.rate-i.quick_subtractor))
-            break
-        salary_left = '{:.2f}'.format(float(salary*(1-Social_ins_rate)) - float(tax))
-        return shebao,tax,salary_left
+            if salary<=3500:
+                tax =0 
+                break
+            elif salary_taxable>=i.salary_bound:
+                tax='{:.2f}'.format(float(salary_taxable*i.rate-i.quick_subtractor))
+                break        
+    
+        salary_left = '{:.2f}'.format(float(salary-shebao - float(tax)))
+        newdata=[shebao,tax,salary_left]
+        return new_data
     
     def _calc_all_user(self):
         self.userlist=[]
