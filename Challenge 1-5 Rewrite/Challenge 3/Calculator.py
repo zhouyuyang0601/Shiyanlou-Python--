@@ -28,20 +28,10 @@ class Args(object):
     def __init__(self):
         self.path = sys.argv[1:]
 
-    def _parse_path(self):
-        self.employee_dict={}
-        for config in self.path:
-            key,value=config.strip().split(',')
-            try:
-                self.employee_dict[key]=value
-            except (IndexError,ValueError,TypeError):
-                print('You entered wrong parameters')
-                sys.exit()
-        
     def get_para(self,config):
         try:
-            return self.employee_dict[config]
-        except ValueError:
+            return self.path[self.path.index(str(config))+1]
+        except (ValueError):
             print('you required a wrong path')
             sys.exit()
 #定义实例arg为Args类，方便在之后调用
@@ -49,37 +39,41 @@ arg=Args()
 
 class Config(object):
     def __init__(self):
-        self.config_path=arg('-c')
+        self.config_path=arg.get_para('-c')
 
-    def _parse_config(self):
-        self.config_dict={}
+    def parse_config(self):
+        config_dict={}
         try:
             with open(self.config_path) as f:
                     for lines in f:
-                       key,value=f.strip().split('=')
-                       self.config_dict[key.strip()]='{:.2f}'.format(float(value.strip()))
+                       key,value=lines.strip().split('=')
+                       config_dict[key.strip()]='{:.2f}'.format(float(value.strip()))
         except (ValueError,IndexError,TypeError):
             print('Errors in config dict input')
             sys.exit()
+        #print config_dict
+        return config_dict
 
     def get_para(self,para):
+        cfg_dict=self.parse_config()
         try:
-            return self.config_dict[para]
+            return cfg_dict[para]
         except (ValueError):
             print('You entered a wrong config para')
             sys.exit()
     
     @property
     def shebao_L(self):
-        return self.config_dict['JiShuL']
+        return self.get_para('JiShuL')
     @property    
     def shebao_H(self):
-        return self.config_dict['JiShuH']
+        return self.get_para('JiShuH')
     @property
     def total_rate(self):
-        for para_value in self.config_dict.values():
+        para_sum=0
+        for para_value in self.parse_config().values():
             para_sum +=para_value
-        para_sum -=self.config_dict['JiShuL']-self.config_dict['JiShuH']
+        para_sum -=self.shebao_L-self.shebao_H
         return para_sum
 
 #定义一个config类的实例
@@ -87,37 +81,33 @@ config=Config()
 
 class Userdata(object):
     def __init__(self):
-        self.user_path=arg('d')
+        self.user_data=self._parse_user_data()
     
     def _parse_user_data(self):
-        self.user_data_dict={}
+        user_data=[]
         try:
-            with open(self.user_path) as f:
+            with open(arg.get_para('-d')) as f:
                 for employee in f:
                     user_id, salary=employee.strip().split(',')
-                    self.user_data_dict[user.id.strip()]='{:.2f}'.format(float(salary.strip()))
+                    user_data.append([user_id,salary])
         except(ValueError,IndexError):
             print('wrong userdata,check it ')
             sys.exit()
+        return user_data
+    def __iter__(self):
+        return iter(self.user_data)
 
-    def get_user(self,user_id):
-        return self.user_data_dict[user_id]
-    @property
-    def all_user(self):
-        return self.user_data_dict
 
-#定义一个user类的实例
-user_data=Userdata()
 
 class tax_calc(object):
 
     def __init__(self):
-        self.userdata=user_data.all_user
+        self.userdata=Userdata()
 
     @staticmethod
-    def shebao_judege(self,salary):
+    def shebao_judge(salary):
         try:
-            salary=float(value)
+            salary=float(salary)
         except TypeError:
             print('Wrong type of value in shebao_judge')
             sys.exit()
@@ -129,15 +119,15 @@ class tax_calc(object):
             shebao=salary*config.total_rate
         return shebao
     @classmethod
-    def tax_calc(self,salary):
+    def tax_calc(cls,salary):
         try:
-            salary=float(value)
+            salary=float(salary)
         except TypeError:
             print('Wrong type of value in tax_calc')
             sys.exit()
 
         #调用静态函数计算社保    
-        shebao=shebao_judege(salary)
+        shebao=cls.shebao_judge(salary)
         #使用函数查询表来计算应缴税工资总数
         salary_taxable= salary-shebao
         #计算税金和税后工资
@@ -151,21 +141,24 @@ class tax_calc(object):
     
         salary_left = '{:.2f}'.format(float(salary-shebao - float(tax)))
         newdata=[shebao,tax,salary_left]
+        print(type(newdata))
         return new_data
     
-    def _calc_all_user(self):
-        self.userlist=[]
-        for i in self.userdata.items:
-            #将字典型数据转化为列表
-            userlist.append(list(i))
-        for j in userlist:
-            j.append(tax_calc(j[1]))
+    def calc_all_user(self):
+        data=Userdata()
+        for i in data:
+            #print(i)
+           # print(i[1])
+            result=self.tax_calc(3500)
+            print(result)
+            i.extend(tax_calc(i[1]))
+        return data
     
     #逐行打印列表
     def print_salary_table(self):
-        with open (config.get_para('-o'),'w',newline='') as file:
-            writer=csv.writer（file)
-            writer.writerows(self.userlist)
+        with open (arg.get_para('-o'),'w') as file:
+            writer=csv.writer(file)
+            writer.writerows(self.calc_all_user())
 
 if __name__=='__main__':
     calculator=tax_calc()
