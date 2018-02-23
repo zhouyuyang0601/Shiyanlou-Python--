@@ -22,18 +22,12 @@ INCOME_TAX_QUICK_LOOKUP_TABLE = [
     	IncomeTaxQuickLookupItem(0, 0.03, 0)
 ]
 #class 
-class Args:
+class Args(object):
 	def __init__(self):
 		self.arg=sys.argv[1:]
-		
-	def _parse_arg(self,args):	
-		try:
-			return self.arg[self.arg.index(args)+1]
-		except (ValueError,IndexError):	
-			print('wrong args')
 	def return_para(self,para):
 		try:
-			return self._parse_arg(para)	
+			return self.arg[self.arg.index(para)+1]
 		except (ValueError,KeyError):
 			print('Dict does not contain it')
 # define Variable Arg belongs to Args Class
