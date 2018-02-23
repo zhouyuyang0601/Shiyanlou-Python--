@@ -135,13 +135,14 @@ class tax_calc(object):
         except TypeError:
             print('Wrong type of value in tax_calc')
             sys.exit()
+
         #调用静态函数计算社保    
         shebao=shebao_judege(salary)
         #使用函数查询表来计算应缴税工资总数
         salary_taxable= salary-shebao
         #计算税金和税后工资
         for i in tax_table:
-            if salary<=3500:
+            if salary<=tax_start_point:
                 tax =0 
                 break
             elif salary_taxable>=i.salary_bound:
