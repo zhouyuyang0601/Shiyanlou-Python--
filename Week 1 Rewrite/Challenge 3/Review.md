@@ -30,6 +30,8 @@
 ./calculator.py -c /home/shiyanlou/test.cfg -d /home/shiyanlou/user.csv -o /tmp/gongzi.csv
 在指定位置输出文件gongzi.csv
 
+###在本地测试的代码
+python "c:\Code\Shiyanlou-Python--\Challenge 1-5 Rewrite\Challenge 3\Calculator.py" '-c' 'c:\Code\Shiyanlou-Python--\Challenge 1-5 Rewrite\Challenge 3\test.cfg' '-d' 'c:\Code\Shiyanlou-Python--\Challenge 1-5 Rewrite\Challenge 3\user.csv' '-o' 'c:\Code\Shiyanlou-Python--\Challenge 1-5 Rewrite\Challenge 3\gongzi.csv'
 
 >101,3500
 203,5000

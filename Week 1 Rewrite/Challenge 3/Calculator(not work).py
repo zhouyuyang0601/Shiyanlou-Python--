@@ -141,8 +141,7 @@ class tax_calc(object):
     
         salary_left = '{:.2f}'.format(float(salary-shebao - float(tax)))
         newdata=[shebao,tax,salary_left]
-        print(type(newdata))
-        return new_data
+        return newdata
     
     def calc_all_user(self):
         data=Userdata()
@@ -151,7 +150,7 @@ class tax_calc(object):
            # print(i[1])
             result=self.tax_calc(3500)
             print(result)
-            i.extend(tax_calc(i[1]))
+            i.extend(self.tax_calc(i[1]))
         return data
     
     #逐行打印列表
