@@ -57,7 +57,7 @@ class Config:
             with open(self.path) as f:
                 for lines in f:
                     keyword,values=lines.strip().split('=')
-                    config_dict[keyword.strip()]=float(values.strip())
+                    config_dict[keyword.strip()]='{:.2f}'.format(float(values.strip()))
         except (ValueError,TypeError,AttributeError):
             print('you entered a wrong config document')
             sys.exit()
@@ -96,16 +96,16 @@ class User_Data(object):
         user_dict=[]
         with open(self.path) as f:
             for lines in f.readlines():
-             
+                print(lines)
                 user_id, salary=lines.strip().split(',')
                 try:
-                    result=(int(user_id),int(salary))
-                 
+                    result=(int(user_id),float(salary))
+                    #print(result)
                     user_dict.append(result)
                 except (TypeError,IndexError):
                     print('Problems in reading user data file')
                     sys.exit()
-        #print(user_dict)
+        print(user_dict)
         return user_dict
     
     def __iter__(self):
@@ -123,7 +123,6 @@ class tax_calc():
         except TypeError:
             print('Wrong type of value in shebao_judge')
             sys.exit()
-    
         if salary<=config.shebao_L:
             shebao=float(config.shebao_L)*float(config.total_rate)
         if salary>=config.shebao_H:
@@ -151,23 +150,21 @@ class tax_calc():
             elif salary_taxable>=i.salary_bound:
                 tax=float(salary_taxable*i.rate-i.quick_subtractor)
                 break        
-        salary_left = float(salary-shebao-tax)
+        salary_left = '{:.2f}'.format(float(salary-shebao-tax))
         newdata=[shebao,tax,salary_left]
         return newdata
     
     def calc_all_user(self):
         output_list=[]
         for i in self.user:
-            #output_list.append(i)
+            output_list.append(i)
             result=self.tax_calc(i[1])
-            user_list=list(i)
-            output_list.append(user_list+result)
-        print(output_list)
+            output_list.append(result)
         return output_list
     
     #逐行打印列表
     def print_salary_table(self):
-        with open (arg.return_para('-o'),'w', newline='') as file:
+        with open (arg.return_para('-o'),'w') as file:
             writer=csv.writer(file)
             writer.writerows(self.calc_all_user())
 

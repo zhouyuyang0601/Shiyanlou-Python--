@@ -14,4 +14,13 @@
 进程 2：queue1.get() 得到列表 data，第一项是用户 ID，第二项是税前工资，然后计算后生成新的列表。 newdata，包含社保，个税，税后工资等数据，然后使用 queue2.put(newdata)。
 进程 3：queue2.get() 得到列表 newdata，包含用户 ID，税前工资，社保，个税，税后工资等数据，然后写入文件。
 
+#感想
+其实就是把读取用户数据，计算这两个Class的继承对象改成了Process，
+在操作时，按行读取 'readlines()' 读取文件中的数据，利用q_user.put推送出去
+在tax_calc时，用q_user.get读取进来
+计算出去的结果用q_result.put推送，在新建的~~以前的tax_cal类下exporter函数~~类中读取进来，再按行写入
+
+在执行区域，每个进程用process()标定，用.run来运行
+
+在计算时用timeout来将不活跃的进程结束
 
