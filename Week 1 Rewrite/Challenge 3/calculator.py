@@ -162,7 +162,7 @@ class tax_calc():
             result=self.tax_calc(i[1])
             user_list=list(i)
             output_list.append(user_list+result)
-        print(output_list)
+        #print(output_list)
         return output_list
     
     #逐行打印列表
