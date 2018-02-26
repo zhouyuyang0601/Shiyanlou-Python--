@@ -55,7 +55,16 @@ GongJiJin = 0.12
 309,15000,2475.00,1251.25,11273.75,2017-09-01 10:02:00
 
 #测试条件
-./calculator.py -C Chengdu -c test.cfg -d user.csv -o gongzi.csv
+calculator.py -C cityname -c configfile -d userdata -o resultdata
+###家里电脑
+python "D:\Code\Shiyanlou-Python--\Challenge 5\Calculator.py" '-c' 'D:\Code\Shiyanlou-Python--\Challenge 5\test.cfg' '-d' 'D:\Code\Shiyanlou-Python--\Challenge 5\user.csv' '-o' 'D:\Code\Shiyanlou-Python--\Challenge 5\gongzi.csv'
+
+Usage: calculator.py -C cityname -c configfile -d userdata -o resultdata
+-h 或 --help，打印当前计算器的使用方法，内容为：
+-C 城市名称 指定使用某个城市的社保配置信息，如果没有使用该参数，则使用配置文件中 [DEFAULT] 栏目中的数据，城市名称不区分大小写，比如配置文件中写的是 [CHENGDU]，这里参数可以写 -C Chengdu，仍然可以匹配
+-c 配置文件 配置文件，由于各地的社保比例稍有不同，我们将多个城市的不同配置信息写入一个配置文件
+-d 员工工资数据文件 指定员工工资数据文件，文件中包含两列内容，分别为员工工号和工资金额
+-o 员工工资单数据文件 输出内容，将员工缴纳的社保、税前、税后工资等详细信息输出到文件中
 
 #参考
 基于 getopt 模块处理程序的参数
@@ -68,3 +77,4 @@ Python3 模块使用
 getopt 处理命令行参数
 configparser 读取配置文件
 datetime 格式化输出时间
+

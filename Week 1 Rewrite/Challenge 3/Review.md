@@ -32,6 +32,8 @@
 
 ###在本地测试的代码
 python "c:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 3\Calculator.py" '-c' 'c:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 3\test.cfg' '-d' 'c:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 3\user.csv' '-o' 'c:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 3\gongzi.csv'
+###家里电脑
+python "D:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 3\Calculator.py" '-c' 'D:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 3\test.cfg' '-d' 'D:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 3\user.csv' '-o' 'D:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 3\gongzi.csv'
 
 >101,3500
 203,5000

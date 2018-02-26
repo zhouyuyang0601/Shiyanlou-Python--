@@ -159,7 +159,13 @@ class tax_calc():
         for i in self.user:
             output_list.append(i)
             result=self.tax_calc(i[1])
+<<<<<<< HEAD
             output_list.append(result)
+=======
+            user_list=list(i)
+            output_list.append(user_list+result)
+        #print(output_list)
+>>>>>>> e5d45fe64eec4268e8fc9da027aef67850ff577d
         return output_list
     
     #逐行打印列表
