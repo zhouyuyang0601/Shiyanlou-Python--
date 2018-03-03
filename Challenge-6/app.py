@@ -59,9 +59,9 @@ class read_file(object):
     """
 
     def get_title_list(self):
-        return [item['title'] for item in self._files.valus()]
+        return [item['title'] for item in self._files.values()]
     
-    def get_by_filename(self):
+    def get_by_filename(self，filename):
         return self._files.get(filename)
         return self._files.get(filename)
 
