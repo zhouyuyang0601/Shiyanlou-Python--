@@ -2,6 +2,7 @@
 # -*- coding:utf-8 -*-
 import os
 import sys
+import json
 from flask import Flask,abort,render_template
 
 app = Flask(__name__)
@@ -10,7 +11,7 @@ app是Flask的实例，它接收包或者模块的名字作为参数，但一般
     让flask.helpers.get_root_path函数通过传入这个名字确定程序的根目录，以便获得静态文件和模板文件的目录。 
 所以一般是在#根目录#下面允许程序
 """
-class read_file(obejct):
+class read_file(object):
     #返回根目录下的files文件夹目录
     #因为我们已知Json文件会被存储在files中
     #所以在类变量中声明directory
@@ -39,7 +40,7 @@ class read_file(obejct):
             os.listdir()
             方法用于返回指定的文件夹包含的文件或文件夹的名字的列表。这个列表以字母顺序。 它不包括 '.' 和'..' 即使它在文件夹中。
             """
-            file_path =  os.path.join(self.direcotry,filename)
+            file_path =  os.path.join(self.directory,filename)
             with open(file_path) as f:
                 result[filename[:-5]]=json.load(f)
                 #'.json 一共5个字符
@@ -60,7 +61,8 @@ class read_file(obejct):
     def get_title_list(self):
         return [item['title'] for item in self._files.valus()]
     
-    def get_by_filename
+    def get_by_filename(self):
+        return self._files.get(filename)
         return self._files.get(filename)
 
 files=read_file()
@@ -78,7 +80,7 @@ Jinja2需要{%end for%}来完成所有变量
 @app.route('/files/<filename>')
 def file(filename):
     file_item=files.get_by_filename(filename)
-    if not file_item
+    if not file_item:
         abort(404)
     return render_template('file.html',file_item=file_item)
     """
@@ -91,11 +93,11 @@ def file(filename):
         若是，则转到file.html
     """
 @app.errorhandler(404)
-    def not_found(error):
-        return render_template('404.html'),404
+def not_found(error):
+    return render_template('404.html'),404
     """
     输出自定义的404页面
     """
 
-if __name__='__main__':
+if __name__ == '__main__':
     app.run()
