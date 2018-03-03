@@ -18,9 +18,8 @@ def index():
     for files in filelist:
         i=0
         with open(file) as f:
-            'file_'+=json.loads(file)
+            'file_'st+=json.loads(file)
         
-            
 
 @app.route('/files/<filename>')
 def file(filename):
