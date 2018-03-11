@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-import os
-import sys
-import json
 from datatime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask,abort,render_template
@@ -53,13 +50,11 @@ class Category(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html',title_list=files.get_title_list())
+    return render_template('index.html',files=File.query_all())
 
-@app.route('/files/<filename>')
-def file(filename):
-    file_item=files.get_by_filename(filename)
-    if not file_item:
-        abort(404)
+@app.route('/files/<int:file_id>')
+def file(file_id):
+    file_item=File.query.get_or_404(file_id)
     return render_template('file.html',file_item=file_item)
   
 @app.errorhandler(404)
