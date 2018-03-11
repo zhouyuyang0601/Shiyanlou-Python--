@@ -29,7 +29,7 @@ class File(db.Model):
 创建field对象的定义字段
 id,title,created_time,Category_id,category,content
 """
-    def __init__(self,title,created_time,category,contet):
+    def __init__(self,title,created_time,category,content):
         self.title=title
         self.created_time=created_time
         self.category=category
@@ -78,7 +78,7 @@ id,title,created_time,Category_id,category,content
         else:
             return []
         pass
-        
+
 class Category(db.Model):
     __tablename__='categories'
 
