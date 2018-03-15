@@ -6,6 +6,9 @@
 
 #测试
 ./calculator.py -c test.cfg -d user.csv -o gongzi.csv
+python "c:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 4\Calculator.py" '-c' 'c:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 4\test.cfg' '-d' 'c:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 4\user.csv' '-o' 'c:\Code\Shiyanlou-Python--\Week 1 Rewrite\Challenge 4\gongzi.csv'
+
+
 
 #实现思路
 实现方案可以考虑定义 queue1 和 queue2，实现三个进程如下：
@@ -14,7 +17,6 @@
 进程 2：queue1.get() 得到列表 data，第一项是用户 ID，第二项是税前工资，然后计算后生成新的列表。 newdata，包含社保，个税，税后工资等数据，然后使用 queue2.put(newdata)。
 进程 3：queue2.get() 得到列表 newdata，包含用户 ID，税前工资，社保，个税，税后工资等数据，然后写入文件。
 
-<<<<<<< HEAD
 #感想
 其实就是把读取用户数据，计算这两个Class的继承对象改成了Process，
 在操作时，按行读取 'readlines()' 读取文件中的数据，利用q_user.put推送出去
@@ -24,7 +26,4 @@
 在执行区域，每个进程用process()标定，用.run来运行
 
 在计算时用timeout来将不活跃的进程结束
-=======
-#进阶思路
->>>>>>> e5d45fe64eec4268e8fc9da027aef67850ff577d
 
