@@ -8,8 +8,8 @@ def quarter_volume()
     data=pd.read_csv(path)
     data['Date']=pd.to_datetime(data['Date'])
     ts=pd.Series(list(data['Volume']),index= data['Date'])
-    ts_quarter=ts.resample('Q').sum().sort_values(ascending=False)
-    return ts_quarter[1]
+    ts_quarter=ts.resample('Q').sum().sort_values()
+    return ts_quarter[-2]
 
 
     
