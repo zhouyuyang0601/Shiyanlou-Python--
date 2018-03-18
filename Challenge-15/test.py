@@ -10,8 +10,8 @@ class test(scrapy.Spider):
 		return (url_temp.format(i) for i in range(1,5))
 
 	def parse(self,response):
-		for repositories in response.css('li.public'):
+		for repositories in response.css('div#user-repositories-list li'):
 			yield{
-				'name':repositories.xpath('//*[@id="user-repositories-list"]/ul/li[2]/div[1]/h3/a/text()').extract_first().strip(),
-				'update_time':repositories.xpath('//*[@id="user-repositories-list"]/ul/li[2]/div[3]/relative-time/@datetime').extract()
+				'name':repositories.css('a[itemprop="name codeRepository"]::text').extract_first().strip(),
+				'update_time':repositories.css('relative-time::attr(datetime)').extract_first()
 			}	

@@ -3,7 +3,7 @@ https://github.com/shiyanlou?tab=repositories
 
 从页面中爬取下来，#仓库名称 #更新时间 存入json文件
 
-https://github.com/shiyanlou?page={}&tab=repositories
+https://github.com/shiyanlou?page=1&tab=repositories
 
 #run
 
