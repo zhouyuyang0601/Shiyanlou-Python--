@@ -3,7 +3,7 @@ import numpy as np
 import os
 from pandas import Series,DataFrame
 
-def quarter_volum()
+def quarter_volume()
     path=os.path.abspath('apple.csv')
     data=pd.read_csv(path)
     data['Date']=pd.to_datetime(data['Date'])
