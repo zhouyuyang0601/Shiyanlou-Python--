@@ -57,7 +57,7 @@ GongJiJin = 0.12
 #测试条件
 calculator.py -C cityname -c configfile -d userdata -o resultdata
 ###家里电脑
-python "D:\Code\Shiyanlou-Python--\Challenge 5\Calculator.py" '-c' 'D:\Code\Shiyanlou-Python--\Challenge 5\test.cfg' '-d' 'D:\Code\Shiyanlou-Python--\Challenge 5\user.csv' '-o' 'D:\Code\Shiyanlou-Python--\Challenge 5\gongzi.csv'
+python "D:\Code\Shiyanlou-Python--\Challenge-5\Calculator.py" '-c' 'D:\Code\Shiyanlou-Python--\Challenge-5\test.cfg' '-d' 'D:\Code\Shiyanlou-Python--\Challenge-5\user.csv' '-o' 'D:\Code\Shiyanlou-Python--\Challenge-5\gongzi.csv'
 
 Usage: calculator.py -C cityname -c configfile -d userdata -o resultdata
 -h 或 --help，打印当前计算器的使用方法，内容为：
