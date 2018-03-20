@@ -10,7 +10,7 @@ class test(scrapy.Spider):
 		return (url_temp.format(i) for i in range(1,5))
 
 	def parse(self,response):
-		for repositories in response.css('div#user-repositories-list li'):
+		for repositories in response.css('li.public'):
 			yield{
 				'name':repositories.css('a[itemprop="name codeRepository"]::text').extract_first().strip(),
 				'update_time':repositories.css('relative-time::attr(datetime)').extract_first()
