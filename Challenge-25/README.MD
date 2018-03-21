@@ -55,3 +55,13 @@ Country:
     -Lending Cate: 世界银行借款类别
 Series:
     -Data对应数据简介，代号 （挑战25中没有作用）
+
+#麻烦一：如何读取excel
+pandas内置的read_excel需要exlr包进行支持
+sheet_name 用于区别不同的sheet
+我希望把包保存在不同的dataframe里这样可能会更好的进行关联，然后再组合成一个整表
+Ans:非常简单，阅读文档后发现通过sheet_name这个可以控制读什么
+
+#麻烦二：如何根据标签进行分组：
+已知二氧化碳排放量的标签是： EN.ATM.CO2E.KT，先把每年的二氧化碳排放累积求和
+然后根据df_country里不同国家的income group进行区分

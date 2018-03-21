@@ -11,8 +11,8 @@ lowest_ems=[]
 def co2():
 
     # 读取世界银行气候变化数据集
-    df_climate = pd.read_excel("ClimateChange.xlsx", sheetname=0)
-    df_country = pd.read_excel("ClimateChange.xlsx", sheetname=1)
+    df_climate = pd.read_excel("ClimateChange.xlsx", sheet_name=0)
+    df_country = pd.read_excel("ClimateChange.xlsx", sheet_name=1)
     """
     #数据清洗
     #有缺失值的年份数据进行填充，挑战规定使用近邻数据填充
@@ -30,19 +30,19 @@ def co2():
     
     #求和
     col1=country_co2.groupby('Income group').sum()
-
-    test=country_co2.groupby('Income group')
+    df_co2=country_co2.groupby('Income group')
+    """
     for name,income_group in test:
         print(name,end='   ')
         print(income_group['CO2 sum emission'].sum())
-    """
+    
     High income: OECD       222798900.271
     High income: nonOECD    12849934.403
     Low income              4828276.561
     Lower middle income     51508409.157
     Upper middle income     171410713.709
     """
-    for name,income_group in test:
+    for name,income_group in df_co2:
         name_list.append(name)
         sum_list.append(income_group['CO2 sum emission'].sum())
         highest_name.append(income_group['CO2 sum emission'].idxmax())
@@ -50,7 +50,7 @@ def co2():
         lowest_name.append(income_group['CO2 sum emission'].idxmin())
         lowest_ems.append(income_group['CO2 sum emission'].min())
     column_name=['Sum emissions','Highest emission country','Highest emissions','Lowest emission country','Lowest emissions']
-    results=DataFrame(list(ip(sum_list,highest_name,highest_ems,lowest_ems,lowest_name)),columns=column_name,index=name_list)
+    results=DataFrame(list(zip(sum_list,highest_name,highest_ems,lowest_ems,lowest_name)),columns=column_name,index=name_list)
 
     # 必须返回最终得到的 DataFrame
     return results
