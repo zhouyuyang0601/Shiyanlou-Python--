@@ -5,6 +5,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pandas import Series,DataFrame
 def co2_gdp_plot():
+<<<<<<< HEAD
+=======
+    #阅读文件
+>>>>>>> fa105cfe5984a5b59652c03bb7da2e3d94b93372
     df_climate = pd.read_excel("ClimateChange.xlsx", sheet_name=0)
     df_co2=df_climate[df_climate['Series code'] == "EN.ATM.CO2E.KT"].set_index('Country name').iloc[:,5:27]
     df_gdp=df_climate[df_climate['Series code'] == "NY.GDP.MKTP.CD"].set_index('Country name').iloc[:,5:27]
