@@ -38,7 +38,6 @@ def climate_plot():
     #作图
     #图一图二作图前需要归一化
 
-    fig = plt.subplot()
     norm_func=lambda x: (x - np.min(x)) / (np.max(x) - np.min(x))
     #图一
     #绘制 1990 年 - 2010 年间，「全球历年温室气体排放总量」与「历年陆地平均温度」及「历年陆地-海洋平均温度」三者之间的线形图。
@@ -70,16 +69,16 @@ def climate_plot():
     plot2.plot(ax=ax2,kind='bar')
     #图三
     ax3=fig.add_subplot(2,2,3)
-    ax3.set_xlabel('Quaters')
-    ax3.set_ylabel('Temperature')
-
     plot3=DataFrame([land_avg_q,land_ocean_avg_q]).transpose()
     plot3.plot(ax=ax3,kind='area')
+    plt.xlabel('Quaters')
+    plt.ylabel('Temperature')
 
     #图四
     ax4=fig.add_subplot(2,2,4)
-    ax4.set_xlabel('Values')
-    ax4.set_ylabel('Values')
+   
     plot3.plot(ax=ax4,kind='kde')
+    plt.xlabel('Values')
+    plt.ylabel('Values')
     # 返回 fig 对象
     return fig
