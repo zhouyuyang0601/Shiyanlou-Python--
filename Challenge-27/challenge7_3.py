@@ -71,7 +71,7 @@ def climate_plot():
     ax3=fig.add_subplot(2,2,3)
     plot3=DataFrame([land_avg_q,land_ocean_avg_q]).transpose()
     plot3.plot(ax=ax3,kind='area')
-    plt.xlabel('Quaters')
+    plt.xlabel('Quarters')
     plt.ylabel('Temperature')
 
     #图四

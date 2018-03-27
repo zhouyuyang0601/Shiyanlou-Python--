@@ -5,10 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pandas import Series,DataFrame
 def co2_gdp_plot():
-<<<<<<< HEAD
-=======
     #阅读文件
->>>>>>> fa105cfe5984a5b59652c03bb7da2e3d94b93372
     df_climate = pd.read_excel("ClimateChange.xlsx", sheet_name=0)
     df_co2=df_climate[df_climate['Series code'] == "EN.ATM.CO2E.KT"].set_index('Country name').iloc[:,5:27]
     df_gdp=df_climate[df_climate['Series code'] == "NY.GDP.MKTP.CD"].set_index('Country name').iloc[:,5:27]
@@ -20,10 +17,7 @@ def co2_gdp_plot():
     co2_norm=co2_sum.apply(norm_fuc)
     gdp_norm=gdp_sum.apply(norm_fuc)
     df_all=co2_norm.join(gdp_norm)
-<<<<<<< HEAD
-=======
     #作图
->>>>>>> fa105cfe5984a5b59652c03bb7da2e3d94b93372
     china = list(df_all.loc['China'].values.round(3))
     name_list=['China','United States','United Kingdom','France','Russian Federation']
     loc_list=[]
