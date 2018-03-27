@@ -1,0 +1,14 @@
+
+ ShadowsocksR账号 配置信息：
+ I  P       : 35.194.210.9
+ 端口       : 6666
+ 密码       : liuyi
+ 加密       : aes-256-cfb
+ 协议       : auth_aes128_md5
+ 混淆       : tls1.2_ticket_auth_compatible
+ 设备数限制 : 2
+ 单线程限速 : 0 KB/S
+ 端口总限速 : 0 KB/S
+ SSR   链接 : ssr://MzUuMTk0LjIxMC45OjY2NjY6YXV0aF9hZXMxMjhfbWQ1OmFlcy0yNTYtY2ZiOnRsczEuMl90aWNrZXRfYXV0aDpiR2wxZVdr 
+ SSR 二维码 : http://doub.pw/qr/qr.php?text=ssr://MzUuMTk0LjIxMC45OjY2NjY6YXV0aF9hZXMxMjhfbWQ1OmFlcy0yNTYtY2ZiOnRsczE
+uMl90aWNrZXRfYXV0aDpiR2wxZVdr
