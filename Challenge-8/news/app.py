@@ -24,7 +24,7 @@ class File(db.Model):
     #id作为整数型，作为数据库的主键
     id=db.Column(db.Integer,primary_key=True)
     #Title是作为一个索引，不能重复的
-    title=db.Column(db.string(80),unique=True)
+    title=db.Column(db.String(80),unique=True)
     category_id=db.Column(db.Integer,db.ForeignKey('categories.id'))
     category = db.relationship('Category',uselist=False)
     """
