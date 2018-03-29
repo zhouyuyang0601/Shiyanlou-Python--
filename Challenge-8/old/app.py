@@ -25,10 +25,6 @@ class File(db.Model):
     category = db.relationship('Category',uselist=False)
     #uselist使得sql返回的东西只是对象而不是列表
     content=db.Column(db.Text)
-"""
-创建field对象的定义字段
-id,title,created_time,Category_id,category,content
-"""
     def __init__(self,title,created_time,category,content):
         self.title=title
         self.created_time=created_time
