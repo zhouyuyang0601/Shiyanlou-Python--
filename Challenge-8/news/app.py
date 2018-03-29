@@ -39,20 +39,31 @@ class File(db.Model):
     utc时间能够保证各个时区显示正确（海外用户)
     """
 
-    def __init__(self,*args,**kwargs):
-        super().__init__(*args,**kwargs)
-            #TODO 自动生成MongoDB类型
-
     def add_tag(self,tag):
-        pass
+        mongo.file.update.one({'_id':self.id},{'%addToSet':{'tags':tag}})
+        return self._file['tags']
+
     def remove_tag(self,tag):
-        pass
+        mongo.file.update.one({'_id':self.id},{'%pull':{'tags':tag}})
+        return self._file['tags']
+
     @property 
     def mongo(self):
-        pass
+        return mongo.file.find_one({'_id':self.id})
+
     @property
     def tags(self):
-        pass
+        return self._file['tags']
+"""
+File对象插入数据时，自动创建关联的MongoDb对象
+"""
+@event.listens_for(File,'after_insert')
+def auto_crate(mapper,conn,file):
+    mongo.file.insert_one({'_id':file.id})
+#File移除时，自动删除Mongo对象
+@event.listens_for(File, 'after_delete')
+def auto_delete_mongodb_file(mapper, conn, file):
+    mongo.file.delete_one({'_id': file.id})
 
 """
 开始写Category类
