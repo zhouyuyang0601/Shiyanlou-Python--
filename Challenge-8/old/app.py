@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 from pymongo import MongoClient
-from datatime import datetime
-from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+from Flask-SQLAlchemy import SQLAlchemy
 from flask import Flask,abort,render_template
 
 app = Flask(__name__)
