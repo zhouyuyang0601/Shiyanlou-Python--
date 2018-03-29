@@ -1,7 +1,9 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy 
-from pymongo import MongoClient
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 
+from sqlalchemy import event
+from pymongo import MongoClient
+from datetime import datetime
 """
 sqlALchemy用于操作MySQL
 Pymonog用于操作MongoDb
@@ -9,9 +11,9 @@ Pymonog用于操作MongoDb
 
 app=Flask(__name__)
 
-app.config.update([
-    'SQLALCHEMY_DATABASE_URI':'mysql://root@127.0.0.1/news'
-])
+app.config.update({
+    'SQLALCHEMY_DATABASE_URI': 'mysql://root@127.0.0.1/news'
+})
 #定义数据库 db(mySQL) mongo(MongoDB)
 db=SQLAlchemy(app)
 mongo=MongoClient('127.0.0.1',27017)
@@ -82,7 +84,7 @@ class Category(db.Model):
         self.name = name
 
 @app.route('/')
-def index:
+def index():
     return render_template('index.html',files=File.query.all())
 
 @app.route('/files/<int:file_id>')
@@ -95,7 +97,7 @@ def file(file_id):
     return render_template('file.html',file=file)
 
 @app.errorhandler(404)
-def not found(error):
+def not_found(error):
     return render_template('404.html'),404
     """
     在返回render_template可以返回多个结果，在处理时将第二个值（404）作为状态码
@@ -118,15 +120,11 @@ def  insert_datas():
     file2.add_tag('python')
 
 
-if __name__='__main__'
+if __name__=='__main__':
     
     #启动应用时插入数据
     db.create_all()
     if Category.query.filter_by(name='Java').first():
-        insert_datas
-    """
-    如果查询java没有查询到，就插入数据
-    避免多次启动插入多次
-    """"
-    pass
+        insert_datas()
+    app.run()
 
