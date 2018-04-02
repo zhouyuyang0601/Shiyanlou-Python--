@@ -2,10 +2,15 @@ import scrapy
 
 class read_shiyanlou(scrapy.Spider):
     name='shiyanlou-course'
-    @property
-    def start_urls(self):
+    custom_settings = {
+        'FEED_EXPORT_ENCODING': 'utf-8',
+    }
+
+    def start_requests(self):
         url_tmpl='https://www.shiyanlou.com/courses/?category=all&course_type=all&fee=all&tag=all&page={}'
-        return(url_tmpl.format(i) for i in range(1,23))
+        urls=(url_tmpl.format(i) for i in range(1,23))
+        for url in urls:
+            yield scrapy.Request(url=url,callback=self.parse)
 
     def parse(self,response):
         for course in response.css('div.course-body'):
