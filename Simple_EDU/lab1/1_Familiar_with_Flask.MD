@@ -30,8 +30,25 @@ $ wget http://labfile.oss.aliyuncs.com/courses/923/week7/code/lab1.zip
     -models.py 数据模型文件
                 用于存储与数据库相关的信息
     
-#config.py
+#blueprint
+    Blueprint 是 Flask 提供的将应用组件化的一种机制。
+    手动注册路由是个非常累的事
+    比如说 shiyanlou.com/courses
+    可以写成：
+    -blueprint.py
+        from flask import Blueprint
+        course = Blueprint('course',__name__,url_prefix='/courses') 
+    -app.py 调用其中的register_blueprint将 courses注册到APP
+    app.register_blueprint(course)
+    -注册路由
+    @course.route('/')
+    def courses_index():
+        return render_template('courses.html')
+    
+
+
     用于存储配置
 
 #Bootstrap
+    这是一个颇受欢迎的前端框架，可以提供一些模板用于美化页面
     用Container的办法来存储一些东西
