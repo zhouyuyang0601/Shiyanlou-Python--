@@ -1,3 +1,34 @@
+#准备工作
+1.修改MySQL配置
+sudo vim /etc/mysql/my.cnf
+添加以下几个配置：
+
+[client]
+default-character-set = utf8
+
+[mysqld]
+character-set-server = utf8
+
+[mysql]
+default-character-set = utf8
+
+2.进入MySQL修改配置
+sudo service mysql start
+以 root 身份进入 mysql，实验环境默认是没有密码的：
+
+mysql -uroot
+创建 shiyanlou 库给本实验使用：
+
+mysql > create database shiyanlou;
+
+3.按照依赖条件
+mysqlclient
+sqlalchemy
+
+4.创建项目
+scrapy startproject shiyanlou
+scrapy genspider users shiyanlou.com
+
 #抓取的数据
 要爬取的内容和字段名称定义：
 
@@ -44,3 +75,28 @@ class UserItem(scrapy.Item):
     join_date = scrapy.Field()
     learn_courses_num = scrapy.Field()
 >>
+
+#Parse文件
+
+1.Name:
+response.css('span.username::text')
+
+2.Type:
+response.css('a.member-icon img.user-icon:attr(title)').extract_first(default='Normal User')
+
+3.join_date
+response.css('span.join-date::text').extract_first()
+>>>
+def parse(self, response):
+        yield UserItem({
+            'name': response.css('span.username::text').extract_first(),
+            'type': response.css('a.member-icon img.user-icon::attr(title)').extract_first(default='普通用户'),
+            'status': response.xpath('//div[@class="userinfo-banner-status"]/span[1]/text()').extract_first(),
+            'job': response.xpath('//div[@class="userinfo-banner-status"]/span[2]/text()').extract_first(),
+            'school': response.xpath('//div[@class="userinfo-banner-status"]/a/text()').extract_first(),
+            'join_date': response.css('span.join-date::text').extract_first(),
+            'level': response.css('span.user-level::text').extract_first(),
+            'learn_courses_num': response.css('span.latest-learn-num::text').extract_first()
+        })
+>>>
+
