@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+import scrapy
+
+class UsersSpider(scrapy.Spider):
+    name = 'users'
+
+    @property
+    def start_urls(self):
+
+        return ('https://www.shiyanlou.com/user/{}/'.format(i) for i in range(525000, 524800, -10))
+
