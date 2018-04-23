@@ -6,22 +6,3 @@ Selenium 是一个 Web 自动化测试工具，最初是为网站自动化测试
 将 Selenium + PhantomJS 联合使用相当于在代码里面模拟了浏览器
 
 我们可以使用这个组合去抓取一些 JavaScript 渲染的页面，也可以用代码模拟人的一些操作，比如点击按钮，拖动，填写表单等等。
-
-#挑战内容
-
-使用Selenium+PhantomJS模拟实验楼下“用Python抓去2048游戏下所有评论”
-
-目标网页：
-https://www.shiyanlou.com/courses/427
-
-#执行过程
-python3 spider.py
-
-保存到comments.json中
-
-#实验要求
-不能直接爬取AJAX的API接口
-不能直接使用Scrapy框架，可以基于Scrapy的HtmlResponse做数据提取
-用模拟浏览器的下一页解析下一页数据
-
-#
